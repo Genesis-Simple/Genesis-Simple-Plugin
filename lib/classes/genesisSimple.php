@@ -21,14 +21,14 @@ class genesisSimple {
         
         $this->instance =& $this;
         $this->$modules = array (
-            'admin_bar_plus' => 'Admin Bar Plus',
-            'custom_background' => 'Custom Backgrounds',
-            'custom_header' => 'Custom Header',
+            'admin_bar_plus'            => 'Admin Bar Plus',
+            'custom_background'         => 'Custom Backgrounds',
+            'custom_header'             => 'Custom Header',
             'featured_widget_amplified' => 'Featured Widget Amplified',
-            'simple_breadcrumbs' => 'Simple Breadcrumbs',
-            'simple_comments' => 'Simple Comments',
-            'simple_edits' => 'Simple Edits',
-            'simple_hooks' => 'Simple Hooks'
+            'simple_breadcrumbs'        => 'Simple Breadcrumbs',
+            'simple_comments'           => 'Simple Comments',
+            'simple_edits'              => 'Simple Edits',
+            'simple_hooks'              => 'Simple Hooks'
         );
         
         add_action( 'init', array( $this, 'setting_defaults' ) );
@@ -103,7 +103,7 @@ class genesisSimple {
 	 */
 	
 	function register_metabox( $_genesis_theme_settings_pagehook ) {
-		add_meta_box('be-title-toggle', __( 'Title Toggle', 'genesis-title-toggle' ), array( $this, 'create_sitewide_metabox' ), $_genesis_theme_settings_pagehook, 'main', 'high');
+		add_meta_box( 'be-title-toggle', __( 'Title Toggle', 'genesis-title-toggle' ), array( $this, 'create_sitewide_metabox' ), $_genesis_theme_settings_pagehook, 'main', 'high' );
 	}
 	
 	/**
@@ -114,7 +114,7 @@ class genesisSimple {
 	function create_sitewide_metabox() {
 		$post_types = apply_filters( 'be_title_toggle_post_types', array( 'page' ) );
 		foreach ( $post_types as $post_type )
-			echo '<p><input type="checkbox" name="' . GENESIS_SETTINGS_FIELD . '[be_title_toggle_' . $post_type . ']" id="' . GENESIS_SETTINGS_FIELD . '[be_title_toggle_' . $post_type . ']" value="1" ' . checked( 1, genesis_get_option( 'be_title_toggle_' . $post_type ), false ) .' /> <label for="' . GENESIS_SETTINGS_FIELD . '[be_title_toggle_' . $post_type . ']"> ' . sprintf( __( 'By default, remove titles in the <strong>%s</strong> post type.', 'genesis-title-toggle' ), $post_type ) .'</label></p>';
+			echo '<p><input type="checkbox" name="' . GENESIS_SETTINGS_FIELD . '[be_title_toggle_' . $post_type . ']" id="' . GENESIS_SETTINGS_FIELD . '[be_title_toggle_' . $post_type . ']" value="1" ' . checked( genesis_get_option( 'be_title_toggle_' . $post_type ), false ) .' /> <label for="' . GENESIS_SETTINGS_FIELD . '[be_title_toggle_' . $post_type . ']"> ' . sprintf( __( 'By default, remove titles in the <strong>%s</strong> post type.', 'genesis-title-toggle' ), $post_type ) .'</label></p>';
 
 	
 	}
@@ -138,46 +138,46 @@ class genesisSimple {
 		$post_types = apply_filters( 'be_title_toggle_post_types', array( 'page' ) );
 		foreach ( $post_types as $post_type ) {
 			$default = genesis_get_option( 'be_title_toggle_' . $post_type );
-			if ( !empty( $default ) ) $show[] = $post_type;
+			if ( ! empty( $default ) ) $show[] = $post_type;
 			else $hide[] = $post_type;
 		}
 		
 		
 		// Create the show and hide metaboxes that override the default
 		
-		if ( !empty( $show ) ) {
+		if ( ! empty( $show ) ) {
 			$meta_boxes[] = array(
-				'id' => 'be_title_toggle_show',
-				'title' => __( 'Title Toggle', 'genesis-title-toggle' ),
-				'pages' => $show,
-				'context' => 'normal',
-				'priority' => 'high',
+				'id'         => 'be_title_toggle_show',
+				'title'      => __( 'Title Toggle', 'genesis-title-toggle' ),
+				'pages'      => $show,
+				'context'    => 'normal',
+				'priority'   => 'high',
 				'show_names' => true,
-				'fields' => array(
+				'fields'     => array(
 					array(
-						'name' => __( 'Show Title', 'genesis-title-toggle' ),
-						'desc' => __( 'By default, this post type is set to remove titles. This checkbox lets you show this specific page&rsquo;s title', 'genesis-title-toggle' ),
-						'id' => 'be_title_toggle_show',
-						'type' => 'checkbox'
+							'name' => __( 'Show Title', 'genesis-title-toggle' ),
+							'desc' => __( 'By default, this post type is set to remove titles. This checkbox lets you show this specific page&rsquo;s title', 'genesis-title-toggle' ),
+							'id'   => 'be_title_toggle_show',
+							'type' => 'checkbox'
 					)
 				)
 			);
 		}
 
-		if ( !empty( $hide ) ) {
+		if ( ! empty( $hide ) ) {
 			$meta_boxes[] = array(
-				'id' => 'be_title_toggle_hide',
-				'title' => __( 'Title Toggle', 'genesis-title-toggle' ),
-				'pages' => $hide,
-				'context' => 'normal',
-				'priority' => 'high',
+				'id'         => 'be_title_toggle_hide',
+				'title'      => __( 'Title Toggle', 'genesis-title-toggle' ),
+				'pages'      => $hide,
+				'context'    => 'normal',
+				'priority'   => 'high',
 				'show_names' => true,
 				'fields' => array(
 					array(
-						'name' => __( 'Hide Title', 'genesis-title-toggle' ),
-						'desc' => __( 'By default, this post type is set to display titles. This checkbox lets you hide this specific page&rsquo;s title', 'genesis-title-toggle' ),
-						'id' => 'be_title_toggle_hide',
-						'type' => 'checkbox'
+							'name' => __( 'Hide Title', 'genesis-title-toggle' ),
+							'desc' => __( 'By default, this post type is set to display titles. This checkbox lets you hide this specific page&rsquo;s title', 'genesis-title-toggle' ),
+							'id'   => 'be_title_toggle_hide',
+							'type' => 'checkbox'
 					)
 				)
 			);
@@ -217,4 +217,3 @@ class genesisSimple {
     
     
 }
-
